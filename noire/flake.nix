@@ -6,13 +6,6 @@
     nixpkgs.follows = "gamindustri-utils/nixpkgs";
     home-manager.follows = "gamindustri-utils/home-manager";
 
-    gamindustri = {
-      type = "indirect";
-      id = "gamindustri";
-
-      inputs.gamindustri-utils.follows = "gamindustri-utils";
-    };
-
     gamindustri-utils = {
       type = "indirect";
       id = "nix-utils";
@@ -20,8 +13,7 @@
 
     # Game Modding
     nix-mod-manager = {
-      # url = "github:nowaaru/nix-mod-manager";
-      url = "path:/shared/flakes/nix-mod-manager";
+      url = "github:nowaaru/nix-mod-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
