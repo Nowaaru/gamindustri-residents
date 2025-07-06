@@ -2,6 +2,7 @@
   description = "Description for the project";
 
   inputs = {
+    home-manager.follows = "gamindustri-utils/home-manager";
     flake-parts.follows = "gamindustri-utils/flake-parts";
 
     # test, remove after user-noire is done
@@ -15,15 +16,8 @@
 
     user-noire = {
       url = "path:noire";
-      inputs.gamindustri.follows = "gamindustri";
       inputs.gamindustri-utils.follows = "gamindustri-utils";
       inputs.nmm-mods.follows = "nmm-mods";
-    };
-
-    gamindustri = {
-      type = "indirect";
-      id = "gamindustri";
-      inputs.gamindustri-utils.follows = "gamindustri-utils";
     };
 
     gamindustri-utils = {
@@ -51,8 +45,7 @@
             ${userName} = user;
           })) {} (lib.attrsets.filterAttrs (k: v: lib.strings.hasPrefix "user-" k) inputs);
 
-      folded-residents = lib.attrsets.foldlAttrs (acc: _: v: acc ++ (lib.lists.singleton v)) [] all-residents;
-      homeManagerEnvironment = lib.gamindustri.users.mkHomeManager folded-residents {
+      homeManagerEnvironment = lib.gamindustri.users.mkHomeManager (lib.attrsets.foldlAttrs (acc: _: v: acc ++ (lib.lists.singleton v)) [] all-residents) {
         inherit inputs;
 
         specialArgs = {
@@ -61,25 +54,18 @@
           # stable = lib.traceVal (builtins.attrNames args.self);
         };
 
-        cfgRootName = "cfg";
-        sysRoot = inputs.gamindustri.outPath;
+        cfgRoot = "cfg";
         usrRoot = ./.;
       };
     in {
       imports = [
+        inputs.home-manager.flakeModules.home-manager
         homeManagerEnvironment
       ];
 
       systems = ["x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin"];
 
-      perSystem = {
-        config,
-        self',
-        inputs',
-        pkgs,
-        system,
-        ...
-      }: {
+      perSystem = {pkgs, ...}: {
         # Per-system attributes can be defined here. The self' and inputs'
         # module parameters provide easy access to attributes of the same
         # system.
@@ -88,8 +74,13 @@
         packages.default = pkgs.hello;
       };
 
-      flake.all-residents = all-residents;
-      flake.folded-residents = folded-residents;
-      flake.gamindustri = inputs.gamindustri;
+      flake = {
+        inherit (homeManagerEnvironment.flake) homeConfigurations;
+        flakeModules.default = {...}: {
+          imports = [
+            homeManagerEnvironment
+          ];
+        };
+      };
     });
 }
