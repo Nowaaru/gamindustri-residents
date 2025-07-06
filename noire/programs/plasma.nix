@@ -6,7 +6,7 @@
   ...
 }: {
   imports = [
-    (lib.trace (builtins.attrNames inputs) inputs).plasma-manager.homeManagerModules.plasma-manager
+    inputs.plasma-manager.homeManagerModules.plasma-manager
     inputs.gamindustri-utils.homeManagerModules.plasma
   ];
 
