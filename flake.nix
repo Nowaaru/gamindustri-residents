@@ -5,19 +5,9 @@
     home-manager.follows = "gamindustri-utils/home-manager";
     flake-parts.follows = "gamindustri-utils/flake-parts";
 
-    # test, remove after user-noire is done
-    nmm-mods = {
-      url = "path:/shared/modding/clients";
-      inputs = {
-        home-manager.follows = "gamindustri-utils/nixpkgs";
-        nixpkgs.follows = "gamindustri-utils/nixpkgs";
-      };
-    };
-
     user-noire = {
       url = "path:noire";
       inputs.gamindustri-utils.follows = "gamindustri-utils";
-      inputs.nmm-mods.follows = "nmm-mods";
     };
 
     gamindustri-utils = {
