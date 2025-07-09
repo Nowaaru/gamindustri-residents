@@ -33,7 +33,7 @@
             user = v.outputs.homeUsers.${userName};
           in {
             ${userName} = user;
-          })) {} (lib.attrsets.filterAttrs (k: v: lib.strings.hasPrefix "user-" k) inputs);
+          })) {} (lib.attrsets.filterAttrs (k: _: lib.strings.hasPrefix "user-" k) inputs);
 
       homeManagerEnvironment = lib.gamindustri.users.mkHomeManager (lib.attrsets.foldlAttrs (acc: _: v: acc ++ (lib.lists.singleton v)) [] all-residents) {
         inherit inputs;
