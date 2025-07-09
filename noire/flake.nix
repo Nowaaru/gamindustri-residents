@@ -21,8 +21,8 @@
       url = "path:/shared/modding/clients";
       inputs = {
         nix-mod-manager.follows = "nix-mod-manager";
-        home-manager.follows = "nixpkgs";
-        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "gamindustri-utils/home-manager";
+        nixpkgs.follows = "gamindustri-utils/nixpkgs";
       };
     };
 
