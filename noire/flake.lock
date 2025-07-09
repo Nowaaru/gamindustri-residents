@@ -874,8 +874,8 @@
         "nurpkgs": "nurpkgs"
       },
       "locked": {
-        "lastModified": 1751839627,
-        "narHash": "sha256-/rs28s4jv5G6xsayQzLdg9HfnNR+P9RzXeuaDcYIEJs=",
+        "lastModified": 1751841366,
+        "narHash": "sha256-SXCCMWdH019kqxHgN4PYHR6qNoAlcwRMOUhtGB7orok=",
         "path": "/gamindustri/utils",
         "type": "path"
       },
@@ -2537,18 +2537,20 @@
       "inputs": {
         "archives": "archives",
         "home-manager": [
-          "nixpkgs"
+          "gamindustri-utils",
+          "home-manager"
         ],
         "nix-mod-manager": [
           "nix-mod-manager"
         ],
         "nixpkgs": [
+          "gamindustri-utils",
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1751594083,
-        "narHash": "sha256-pO5NFfNUwbTDYt0Be94qGYjOJrLWIErMBAGvp/WesB8=",
+        "lastModified": 1751841443,
+        "narHash": "sha256-DUYWZOIrTcsqGUIkxZAd1wD7OhENcWHAioJbnM+KcsM=",
         "path": "/shared/modding/clients",
         "type": "path"
       },
