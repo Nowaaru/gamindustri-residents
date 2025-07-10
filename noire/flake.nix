@@ -129,6 +129,7 @@
   };
 
   outputs = {
+    self,
     flake-parts,
     gamindustri-utils,
     ...
