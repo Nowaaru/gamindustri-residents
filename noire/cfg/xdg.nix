@@ -3,15 +3,37 @@
   pkgs,
   lib,
   ...
-}: {
+}: 
+let 
+    default-web-browser = "zen.desktop";
+in {
   enable = true;
   mime.enable = true;
   mimeApps = {
     enable = true;
     defaultApplications = {
-      "application/vintaagestory" = ["vintagestory.desktop"];
-      "application/vintagestorymodinstall" = ["vintagestory.desktop"];
-      "x-scheme-handler/vintagestorymodinstall" = ["vintagestory.desktop"];
+      inherit default-web-browser;
+      "x-scheme-handler/about" = default-web-browser;
+      "x-scheme-handler/http" = default-web-browser;
+      "x-scheme-handler/https" = default-web-browser;
+      "x-scheme-handler/unknown" = default-web-browser;
+
+
+      # apparently there's a typo in the mimeapp entry for vintagestory
+      # when i checked? hmm.
+
+      "application/vintaagestory" = "vintagestory.desktop";
+      "application/vintagestory" = "vintagestory.desktop";
+      "application/vintagestorymodinstall" = "vintagestory.desktop";
+
+      "x-scheme-handler/vintagestory" = "vintagestory.desktop";
+      "x-scheme-handler/vintaagestory" = "vintagestory.desktop";
+      "x-scheme-handler/vintagestorymodinstall" = "vintagestory.desktop";
+
+      "text/html" = "zen.desktop";
+      "x-scheme-handler/sgdb" = ["SGDBoop.desktop" "com.steamgriddb.SGDBoop.desktop" "~/.local/share/flatpak/exports/share/applications/com.steamgriddb.SGDBoop.desktop"];
+      "x-scheme-handler/discord" = "vesktop.desktop";
+      "x-scheme-handler/bitwarden" = "bitwarden.desktop";
     };
   };
 
@@ -55,14 +77,4 @@
   #         '';
   #     };
   # };
-
-  mimeApps.defaultApplications = {
-    "default-web-browser" = "zen.desktop";
-    "text/html" = "zen.desktop";
-    "x-scheme-handler/sgdb" = ["SGDBoop.desktop" "com.steamgriddb.SGDBoop.desktop" "~/.local/share/flatpak/exports/share/applications/com.steamgriddb.SGDBoop.desktop"];
-    "x-scheme-handler/http" = "zen.desktop";
-    "x-scheme-handler/https" = "zen.desktop";
-    "x-scheme-handler/about" = "zen.desktop";
-    "x-scheme-handler/unknown" = "zen.desktop";
-  };
 }
