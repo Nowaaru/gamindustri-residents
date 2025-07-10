@@ -78,6 +78,7 @@
     user.programs.umu
     user.programs.libre
     user.programs.kitty
+    user.programs.mangohud
 
     # Multi-GPU
     user.programs.nixgl
