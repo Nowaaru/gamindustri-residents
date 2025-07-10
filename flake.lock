@@ -881,8 +881,8 @@
         "nurpkgs": "nurpkgs"
       },
       "locked": {
-        "lastModified": 1751956327,
-        "narHash": "sha256-Fi9TZEseAWPJDU11m+qphSfI6WEgorWYDcC7ZV02dXk=",
+        "lastModified": 1752169143,
+        "narHash": "sha256-HKroHAMvV+qDm9W3NJeiVvf2yvzjWcDejQM5kTvHTsU=",
         "path": "/gamindustri/utils",
         "type": "path"
       },
@@ -3908,7 +3908,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-glHQltazanpdM+uOjhTTzY1k0hCNBDXFZw5QJhQGTyQ=",
+        "narHash": "sha256-1J/vLh8ThkYzxBXJ3hrP9LUzZ4dRoryc4mhzry7y8fQ=",
         "path": "noire",
         "type": "path"
       },
