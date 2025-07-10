@@ -1,7 +1,7 @@
 {
   description = "Noire's luxury home for cool things and such.";
   packageset = "x86_64-linux.unstable";
-  systems = ["x86-64_linux"];
+  system = "x86_64-linux";
   groups = ["wheel"];
   shell = "fish";
 }
