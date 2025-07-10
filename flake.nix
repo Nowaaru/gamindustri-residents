@@ -41,10 +41,12 @@
         specialArgs = {
           inherit (inputs) nix-colors;
           inherit (lib) withSystem;
+          inherit inputs;
           # stable = lib.traceVal (builtins.attrNames args.self);
         };
 
         cfgRoot = "cfg";
+        sysProgramsRoot = inputs.gamindustri-utils + "/programs";
         usrRoot = ./.;
       };
     in {
