@@ -10,6 +10,11 @@
       inputs.gamindustri-utils.follows = "gamindustri-utils";
     };
 
+    user-astarte = {
+      url = "path:astarte";
+      inputs.gamindustri-utils.follows = "gamindustri-utils";
+    };
+
     gamindustri-utils = {
       type = "indirect";
       id = "nix-utils";
@@ -39,9 +44,7 @@
         inherit inputs;
 
         specialArgs = {
-          inherit (inputs) nix-colors;
           inherit (lib) withSystem;
-          inherit inputs;
           # stable = lib.traceVal (builtins.attrNames args.self);
         };
 

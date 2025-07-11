@@ -1,6 +1,5 @@
 {
   pkgs,
-  nix-colors,
   inputs,
   ...
 }: let
@@ -8,8 +7,9 @@
 
   mode = "dark";
   theme =
-    (import (inputs.self + /cfg/themes) {
-      inherit pkgs nix-colors;
+    (import (inputs.gamindustri-utils.outPath + "/cfg/themes") {
+      inherit (inputs) nix-colors;
+      inherit pkgs;
       kind = mode;
     })
     .mountain-view;
@@ -67,16 +67,15 @@ in {
     ];
 
     # Background manager.
-    exec-once =
-      [
-        "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-        "sww kill; wait $!; swww init"
-        "hyprdim"
-        "xrandr --output XWAYLAND0"
+    exec-once = [
+      "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+      "sww kill; wait $!; swww init"
+      "hyprdim"
+      "xrandr --output XWAYLAND0"
 
-        "wl-paste -p --watch wl-copy -p ''" # disable primary buffer
-        "wl-paste --type text --watch cliphist store" # Stores only text data
-        "wl-paste --type image --watch cliphist store" # Stores only image data
-      ];
+      "wl-paste -p --watch wl-copy -p ''" # disable primary buffer
+      "wl-paste --type text --watch cliphist store" # Stores only text data
+      "wl-paste --type image --watch cliphist store" # Stores only image data
+    ];
   };
 }

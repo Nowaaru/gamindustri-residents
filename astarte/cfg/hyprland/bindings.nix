@@ -1,14 +1,18 @@
-{theme, ...}: let
+{
+  theme,
+  pkgs,
+  ...
+}: let
   fileManager = "kitty ranger";
   terminal = "kitty";
-  browser = "floorp --MOZ_ENABLE_WAYLAND=1 -p noire";
+  browser = "MOZ_ENABLE_WAYLAND=1 zen --MOZ_ENABLE_WAYLAND=1";
   mainMod = "SUPER";
 
-  menu = "fuzzel -D no";
-  dmenu = "fuzzel -D no --dmenu";
+  menu = "${pkgs.fuzzel}/bin/fuzzel -D no";
+  dmenu = "${pkgs.fuzzel}/bin/fuzzel -D no --dmenu";
 
   screenshot_dir = "$XDG_PICTURES_DIR/Screenshots";
-  print_screen = "grimblast --notify --freeze copysave area ${screenshot_dir}"; # "fish ~/.diary/Config/Fish/clip.fish";
+  print_screen = "${pkgs.grimblast}/bin/grimblast --notify --freeze copysave area ${screenshot_dir}"; # "fish ~/.diary/Config/Fish/clip.fish";
   themeDir = theme.background + "/..";
 in {
   bind = [
