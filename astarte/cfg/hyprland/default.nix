@@ -1,10 +1,9 @@
 {
   pkgs,
   inputs,
+  lib,
   ...
 }: let
-  inherit (pkgs) lib;
-
   mode = "dark";
   theme =
     (import (inputs.gamindustri-utils.outPath + "/cfg/themes") {
@@ -14,11 +13,13 @@
     })
     .mountain-view;
 
+  startup-items = lib.mkMerge (lib.attrsets.foldlAttrs (acc: k: v: acc ++ (lib.singleton (import ./startup/${k}))) [  ] (builtins.readDir ./startup));
+
   ###############################################
 
   workspaces = import ./workspaces.nix;
   bindings = import ./bindings.nix {
-    inherit theme;
+    inherit pkgs theme;
   };
   monitors = import ./monitors.nix;
   tearing = import ./tearing.nix;
@@ -26,56 +27,53 @@
   vars = import ./vars.nix {
     inherit theme pkgs;
   };
-in {
+in 
+{
   inherit theme;
-  hypr = {
-    inherit (vars) input general decoration animations debug;
-    inherit (workspaces) workspace;
-    inherit (bindings) bind bindm;
-    inherit (monitors) monitor;
-
-    # Some default env vars.
-    env =
+  hypr = lib.mkMerge 
       [
-        "XCURSOR_SIZE,24"
-      ]
-      ++ tearing.env;
+        startup-items
+        tearing
+        monitors
+        bindings
+        workspaces
+        vars
+        {
+          # inherit (vars) input general decoration animations debug;
+          # inherit (workspaces) workspace;
+          # inherit (bindings) bind bindm;
+          # inherit (monitors) monitor;
 
-    windowrulev2 =
-      [
-        # Example windowrule v1
-        # windowrule = float, ^(kitty)$
+          # Some default env vars.
+          env =
+            [
+              "XCURSOR_SIZE,24"
+            ];
 
-        # Example windowrule v2
-        # windowrulev2 = float,class:^(kitty)$,title:^(kitty)$
+          windowrulev2 =
+          [
+              # Example windowrule v1
+              # windowrule = float, ^(kitty)$
 
-        # "nomaximizerequest, class:(.*)"  You'll probably like this.
+              # Example windowrule v2
+              # windowrulev2 = float,class:^(kitty)$,title:^(kitty)$
 
-        # See https://wiki.hyprland.org/Configuring/Window-Rules/ for more
-      ]
-      ++ tearing.windowrulev2;
+              # "nomaximizerequest, class:(.*)"  You'll probably like this.
 
-    layerrule = [
-      "blur, eww-blur"
-      "ignorealpha 0.3, eww-blur"
-    ];
+              # See https://wiki.hyprland.org/Configuring/Window-Rules/ for more
+          ];
 
-    # Stuff to run every reload.
-    exec = [
-      # "eww open-many -c ~/.config/eww topbar sidebarf"
-      (util.str.applySwayTheme theme)
-    ];
+          layerrule = [
+            "blur, eww-blur"
+            "ignorealpha 0.3, eww-blur"
+          ];
 
-    # Background manager.
-    exec-once = [
-      "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-      "sww kill; wait $!; swww init"
-      "hyprdim"
-      "xrandr --output XWAYLAND0"
-
-      "wl-paste -p --watch wl-copy -p ''" # disable primary buffer
-      "wl-paste --type text --watch cliphist store" # Stores only text data
-      "wl-paste --type image --watch cliphist store" # Stores only image data
-    ];
-  };
+          # Stuff to run every reload.
+          exec = [
+            # "eww open-many -c ~/.config/eww topbar sidebarf"
+            (util.str.applySwayTheme theme)
+          ];
+        }
+      ];
 }
+

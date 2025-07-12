@@ -21,7 +21,7 @@
     secrets.url = "path:/shared/secrets";
 
     # Productivity
-    nvf.url = "github:NotAShelf/nvf/a1806457caf18e02bbf747e0263caf8740bacfb6";
+    nvf.url = "github:NotAShelf/nvf/v0.8";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
 
     # Fun
@@ -30,15 +30,17 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    vintagestory = {
+      url = "path:/shared/flakes/vintagestory";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     catppuccin-cursors.url = "github:catppuccin/cursors";
 
     # Hyprland
     nix-colors.url = "github:misterio77/nix-colors";
 
-    hyprland = {
-      url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-      inputs.hyprutils.follows = "hyprutils";
-    };
+    hyprland.url = "github:hyprwm/Hyprland/v0.48.1";
 
     hyprutils = {
       url = "github:hyprwm/hyprutils";
@@ -55,12 +57,6 @@
     hyprcursor = {
       url = "github:hyprwm/hyprcursor";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    xdg-desktop-portal-hyprland = {
-      url = "github:hyprwm/xdg-desktop-portal-hyprland";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.hyprutils.follows = "hyprutils";
     };
 
     hyprland-plugins = {

@@ -3,9 +3,9 @@
   pkgs,
   ...
 }: let
-  fileManager = "kitty ranger";
+  fileManager = "kitty yazi";
   terminal = "kitty";
-  browser = "MOZ_ENABLE_WAYLAND=1 zen --MOZ_ENABLE_WAYLAND=1";
+  browser = "vivaldi";
   mainMod = "SUPER";
 
   menu = "${pkgs.fuzzel}/bin/fuzzel -D no";
@@ -21,10 +21,6 @@ in {
     "${mainMod}, Q, exec, ${terminal}" # Open terminal.
     "${mainMod}, F, exec, ${browser}" # Open browser.
     "${mainMod}, E, exec, ${fileManager}" # Open the file manager.
-
-    "${mainMod}, V, exec, cliphist list | ${dmenu} | cliphist decode | wl-copy"
-    "${mainMod} SHIFT, V, exec, cliphist wipe & dunstify 'Clipboard cleared.'"
-
     "${mainMod}, R, exec, hyprctl reload"
 
     ###############################
@@ -34,17 +30,15 @@ in {
     "${mainMod} SHIFT, SPACE, togglefloating," # Make the active window float.
 
     ###############################
-    # ElKowar's Wacky Widgets!
-    "${mainMod}, F4, exec, eww open --screen 1 poweropts" # System power menu.
-    "${mainMod} ALT, E, exec, eww kill"
-
-    ###############################
     # Global functionality 'n things.
     "${mainMod}, J, togglesplit," # ???
 
     "${mainMod}, SPACE, exec, ${menu}" # Fuzzel.
 
-    "${mainMod}, V, exec, copyq menu" # Clipboard.
+    # Clipboard.
+    # "${mainMod}, V, exec, kitty --class clipse --instance-group clipse --single-instance=yes clipse"
+    "${mainMod}, V, exec, ${pkgs.kitty}/bin/kitty --title clipse --class clipse -e nu -c ${pkgs.clipse}/bin/clipse"
+    "${mainMod} SHIFT, V, exec, ${pkgs.clipse}/bin/clipse -clear-all & dunstify 'Clipboard cleared.'"
 
     "${mainMod} SHIFT, C, exec, ${print_screen}" # Print screen.
     # ",mouse:273, exec, ${print_screen} --kill,^(slurp)"

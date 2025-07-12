@@ -1,0 +1,5 @@
+{
+  exec-once = [
+    "hyprdim"
+  ];
+}
